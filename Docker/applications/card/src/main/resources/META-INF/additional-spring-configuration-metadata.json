@@ -1,0 +1,32 @@
+{"properties": [
+    {
+        "name": "auth.url",
+        "type": "java.lang.String",
+        "description": "A description for 'auth.url'"
+    },
+    {
+        "name": "user.url",
+        "type": "java.lang.String",
+        "description": "A description for 'user.url'"
+    },
+    {
+        "name": "game.url",
+        "type": "java.lang.String",
+        "description": "A description for 'game.url'"
+    },
+    {
+        "name": "market.url",
+        "type": "java.lang.String",
+        "description": "A description for 'market.url'"
+    },
+    {
+        "name": "room.url",
+        "type": "java.lang.String",
+        "description": "A description for 'room.url'"
+    },
+    {
+        "name": "card.url",
+        "type": "java.lang.String",
+        "description": "A description for 'card.url'"
+    }
+]}
