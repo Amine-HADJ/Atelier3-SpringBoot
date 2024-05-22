@@ -2,7 +2,7 @@ version: '3.8'
 services:
   Auth:
     build:
-      context: .
+      context: ./applications/Auth
       dockerfile: Dockerfile
     container_name: Auth
     ports:
@@ -12,7 +12,7 @@ services:
 
   User:
     build:
-      context: .
+      context: ./applications/User
       dockerfile: Dockerfile
     container_name: User
     ports:
@@ -22,7 +22,7 @@ services:
 
   Game:
     build:
-      context: .
+      context: ./applications/Game
       dockerfile: Dockerfile
     container_name: Game
     ports:
@@ -32,7 +32,7 @@ services:
 
   Market:
     build:
-      context: .
+      context: ./applications/Market
       dockerfile: Dockerfile
     container_name: Market
     ports:
@@ -42,7 +42,7 @@ services:
 
   Room:
     build:
-      context: .
+      context: ./applications/Room
       dockerfile: Dockerfile
     container_name: Room
     ports:
@@ -52,7 +52,7 @@ services:
 
   Card:
     build:
-      context: .
+      context: ./applications/Card
       dockerfile: Dockerfile
     container_name: Card
     ports:
