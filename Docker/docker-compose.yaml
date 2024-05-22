@@ -1,61 +1,61 @@
 version: '3.8'
 services:
-  app1:
+  Auth:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app1
+    container_name: Auth
     ports:
       - "8081:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=app1
+      - SPRING_PROFILES_ACTIVE=Auth
 
-  app2:
+  User:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app2
+    container_name: User
     ports:
       - "8082:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=app2
+      - SPRING_PROFILES_ACTIVE=User
 
-  app3:
+  Game:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app3
+    container_name: Game
     ports:
       - "8083:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=app3
+      - SPRING_PROFILES_ACTIVE=Game
 
-  app4:
+  Market:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app4
+    container_name: Market
     ports:
       - "8084:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=app4
+      - SPRING_PROFILES_ACTIVE=Market
 
-  app5:
+  Room:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app5
+    container_name: Room
     ports:
       - "8085:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=app5
+      - SPRING_PROFILES_ACTIVE=Room
 
-  app6:
+  Card:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: app6
+    container_name: Card
     ports:
       - "8085:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=app6
+      - SPRING_PROFILES_ACTIVE=Card
