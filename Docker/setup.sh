@@ -1,6 +1,6 @@
 #!bin/bash
 
-# This script will generate .jar for each application ('mvn clean package')
+# This script will generate .jar for each application ('mvn clean package') and then run all the neccessary containers for the project.
 
 cd ./applications/auth
 mvn clean package
