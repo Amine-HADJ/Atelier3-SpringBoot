@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.cardgame.User.UserApplicationTests
 -------------------------------------------------------------------------------
+<<<<<<< Updated upstream
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.168 s -- in com.cardgame.User.UserApplicationTests
+=======
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.634 s -- in com.cardgame.User.UserApplicationTests
+>>>>>>> Stashed changes
