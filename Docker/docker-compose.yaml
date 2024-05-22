@@ -49,3 +49,13 @@ services:
       - "8085:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=app5
+
+  app6:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app6
+    ports:
+      - "8085:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=app6
