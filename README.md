@@ -1,20 +1,24 @@
 ## Schéma haut niveau
 ```mermaid
 graph LR
- Client -->|API Gateway| Gateway
- Gateway -->|/api/user| UserService
- Gateway -->|/api/auth| AuthService
- Gateway -->|/api/market| MarketService
- Gateway -->|/api/card| CardService
- Gateway -->|/api/inventory| InventoryService
- Gateway -->|/api/game/room| RoomService
- Gateway -->|/api/game/creategame| GameService
+ Client -->|API Gateway| ReverseProxy
+ ReverseProxy -->|/api/user| UserController
+ ReverseProxy -->|/api/auth| AuthController
+ ReverseProxy -->|/api/market| MarketController
+ ReverseProxy -->|/api/card| CardController
+ ReverseProxy -->|/api/game/room| RoomController
+ ReverseProxy -->|/api/game/creategame| GameController
+
+ UserController -->| | UserService
+ AuthController -->| | AuthService
+ MarketController -->| | MarketService
+ CardController -->| | CardService
+ RoomController -->| | RoomService
+ GameController -->| | GameService
 
  UserService -->|CRUD Operations| UserRepo
- UserService -->|CRUD Operations| CardRepo
  AuthService -->|CRUD Operations| UserRepo
  CardService -->|CRUD Operations| CardRepo
- InventoryService -->|CRUD Operations| InventoryRepo
  MarketService -->|CRUD Operations| MarketRepo
  RoomService -->|CRUD Operations| RoomRepo
 ```
@@ -24,18 +28,21 @@ graph LR
  sequenceDiagram
  participant Client
  participant APIGateway
+ participant UserController
  participant UserService
  participant UserRepo
+ participant CardController 
+ participant CardService
  participant CardRepo
- participant InventoryRepo
 Client->>APIGateway: POST /api/user/register
-APIGateway->>UserService: Route vers UserService
+APIGateway->>UserController: Route vers UserController
+UserController->>UserService: Créer utilisateur
 UserService->>UserRepo: Enregistrer utilisateur
-UserRepo-->>UserService: Utilisateur enregistré
-UserService->>CardRepo: Générer cartes
-UserService->>CardRepo: Récupérer cartes
-UserService->>InventoryRepo: Mettre à jour inventaire
-UserService->>InventoryRepo: Enregistrer inventaire
+UserService-->>APIGateway: UserID
+APIGateway->>CardController: UserID
+CardController->> CardService: Générer cartes
+CardService->>CardRepo: Générer cartes
+CardRepo-->>CardService: Récupérer cartes
 UserService-->>APIGateway: Réponse d'inscription
 APIGateway-->>Client: Réponse d'inscription
 ```
@@ -44,13 +51,16 @@ APIGateway-->>Client: Réponse d'inscription
 sequenceDiagram
 participant Client
 participant APIGateway
+participant AuthController
 participant AuthService
 participant UserRepo
 Client->>APIGateway: POST /api/auth/login
-APIGateway->>AuthService: Route vers AuthService
+APIGateway->>AuthController: Route vers AuthController
+AuthController->>AuthService: Vérifier utiliisateur
 AuthService->>UserRepo: Vérifier utilisateur
 UserRepo-->>AuthService: Utilisateur vérifié
-AuthService-->>APIGateway: Réponse d'authentification
+AuthService-->>AuthController: Utilisateur vérifié
+AuthController-->>APIGateway: Réponse d'authentification
 APIGateway-->>Client: Réponse d'authentification
 ```
 ### Market Buy
@@ -58,15 +68,16 @@ APIGateway-->>Client: Réponse d'authentification
 sequenceDiagram
 participant Client
 participant APIGateway
+participant MarketController
 participant MarketService
 participant CardRepo
-participant InventoryRepo
 Client->>APIGateway: POST /api/market/buy
-APIGateway->>MarketService: Route vers MarketService
+APIGateway->>MarketController: Route vers MarketController
+MarketController->>MarketService: Traiter achat
 MarketService->>CardRepo: Traiter achat
-MarketService->>InventoryRepo: Mettre à jour inventaire
-InventoryRepo-->>MarketService: Inventaire mis à jour
-MarketService-->>APIGateway: Réponse d'achat
+CardRepo-->>MarketService: Achat traité
+MarketService-->>MarketController: Réponse d'achat
+MarketController-->>APIGateway: Réponse d'achat
 APIGateway-->>Client: Réponse d'achat
 ```
 ### Market Sell
@@ -74,16 +85,16 @@ APIGateway-->>Client: Réponse d'achat
 sequenceDiagram
 participant Client
 participant APIGateway
+participant MarketController
 participant MarketService
-participant InventoryRepo
 participant CardRepo
 Client->>APIGateway: POST /api/market/sell
-APIGateway->>MarketService: Route vers MarketService
-MarketService->>InventoryRepo: Traiter vente
-InventoryRepo-->>MarketService: Inventaire mis à jour
+APIGateway->>MarketController: Route vers MarketController
+MarketController->>MarketService: Mettre à jour carte
 MarketService->>CardRepo: Mettre à jour carte
 CardRepo-->>MarketService: Carte mise à jour
-MarketService-->>APIGateway: Réponse de vente
+MarketService-->>MarketController: Réponse de vente
+MarketController-->>APIGateway: Réponse de vente
 APIGateway-->>Client: Réponse de vente
 ```
 ### Room
@@ -91,12 +102,15 @@ APIGateway-->>Client: Réponse de vente
 sequenceDiagram
 participant Client
 participant APIGateway
+participant RoomController
 participant RoomService
 participant RoomRepo
 Client->>APIGateway: POST /api/game/room
-APIGateway->>RoomService: Route vers RoomService
+APIGateway->>RoomController: Route vers RoomController
+RoomController->>RoomService: Créer la room
 RoomService->>RoomRepo: Créer la room
 RoomRepo-->>RoomService: Room créée
-RoomService-->>APIGateway: Réponse ID de la room
+RoomService-->>RoomController: Réponse ID de la room
+RoomController-->>APIGateway: Réponse ID de la room
 APIGateway-->>Client: Réponse ID de la room
 ```
