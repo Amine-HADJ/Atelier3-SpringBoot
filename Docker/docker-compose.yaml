@@ -1,61 +1,61 @@
 version: '3.8'
 services:
-  Auth:
+  auth:
     build:
-      context: ./applications/Auth
-      dockerfile: Dockerfile
-    container_name: Auth
+      context: ./applications/auth
+      dockerfile: ./Dockerfile
+    container_name: auth
     ports:
       - "8081:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=Auth
+      - SPRING_PROFILES_ACTIVE=auth
 
-  User:
+  user:
     build:
-      context: ./applications/User
-      dockerfile: Dockerfile
-    container_name: User
+      context: ./applications/user
+      dockerfile: ./Dockerfile
+    container_name: user
     ports:
       - "8082:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=User
+      - SPRING_PROFILES_ACTIVE=user
 
-  Game:
+  game:
     build:
-      context: ./applications/Game
-      dockerfile: Dockerfile
-    container_name: Game
+      context: ./applications/game
+      dockerfile: ./Dockerfile
+    container_name: game
     ports:
       - "8083:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=Game
+      - SPRING_PROFILES_ACTIVE=game
 
-  Market:
+  market:
     build:
-      context: ./applications/Market
-      dockerfile: Dockerfile
-    container_name: Market
+      context: ./applications/market
+      dockerfile: ./Dockerfile
+    container_name: market
     ports:
       - "8084:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=Market
+      - SPRING_PROFILES_ACTIVE=market
 
-  Room:
+  room:
     build:
-      context: ./applications/Room
-      dockerfile: Dockerfile
-    container_name: Room
+      context: ./applications/room
+      dockerfile: ./Dockerfile
+    container_name: room
     ports:
       - "8085:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=Room
+      - SPRING_PROFILES_ACTIVE=room
 
-  Card:
+  card:
     build:
-      context: ./applications/Card
-      dockerfile: Dockerfile
-    container_name: Card
+      context: ./applications/card
+      dockerfile: ./Dockerfile
+    container_name: card
     ports:
       - "8086:8080"
     environment:
-      - SPRING_PROFILES_ACTIVE=Card
+      - SPRING_PROFILES_ACTIVE=card
