@@ -20,6 +20,9 @@ mvn clean package
 cd ../user
 mvn clean package
 
-cd ../../
-docker-compose up --build
+cd ../
+docker-compose up --build -d
+
+cd ../full-front
+docker-compose up --build -d 
 
