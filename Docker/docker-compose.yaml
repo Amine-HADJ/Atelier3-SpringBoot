@@ -3,7 +3,7 @@ services:
   auth:
     build:
       context: ./applications/auth
-      dockerfile: ./Dockerfile
+      dockerfile: ../../Dockerfile
     container_name: auth
     ports:
       - "8081:8080"
@@ -13,7 +13,7 @@ services:
   user:
     build:
       context: ./applications/user
-      dockerfile: ./Dockerfile
+      dockerfile: ../../Dockerfile
     container_name: user
     ports:
       - "8082:8080"
@@ -23,7 +23,7 @@ services:
   game:
     build:
       context: ./applications/game
-      dockerfile: ./Dockerfile
+      dockerfile: ../../Dockerfile
     container_name: game
     ports:
       - "8083:8080"
@@ -33,7 +33,7 @@ services:
   market:
     build:
       context: ./applications/market
-      dockerfile: ./Dockerfile
+      dockerfile: ../../Dockerfile
     container_name: market
     ports:
       - "8084:8080"
@@ -43,7 +43,7 @@ services:
   room:
     build:
       context: ./applications/room
-      dockerfile: ./Dockerfile
+      dockerfile: ../../Dockerfile
     container_name: room
     ports:
       - "8085:8080"
@@ -53,7 +53,7 @@ services:
   card:
     build:
       context: ./applications/card
-      dockerfile: ./Dockerfile
+      dockerfile: ../../Dockerfile
     container_name: card
     ports:
       - "8086:8080"

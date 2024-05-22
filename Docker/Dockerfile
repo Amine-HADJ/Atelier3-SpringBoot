@@ -1,5 +1,5 @@
 
-FROM openjdk:21-jre-slim
+FROM openjdk:23-slim
 
 ARG JAR_FILE=target/*.jar
 
