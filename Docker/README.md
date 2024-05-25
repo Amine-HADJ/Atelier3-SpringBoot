@@ -16,3 +16,5 @@ This script will build the Docker images and run the containers.
 - **Frontend**: http://localhost:3000
 - **Backend**: http://localhost:8080
 
+## Reverse Proxy
+A reverseProxy was set up to route requests to different microservices of our application.
