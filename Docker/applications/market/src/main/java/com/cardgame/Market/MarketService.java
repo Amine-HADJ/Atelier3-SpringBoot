@@ -1,73 +1,70 @@
 package com.cardgame.Market;
 
 import org.springframework.stereotype.Service;
-
-import com.cardgame.Market.Card;
-import com.cardgame.Market.CardRepo;
-import com.cardgame.Market.UserRepo;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
+import java.util.Map;
 
 @Service
+@SuppressWarnings("unchecked")
 public class MarketService {
 
-    private CardRepo cardRepo;
-    private UserRepo userRepo;
+    private final RestTemplate restTemplate;
+    private final String userServiceUrl = "http://user/";
+    private final String cardServiceUrl = "http://card/";
 
-    public MarketService(CardRepo cardRepo, UserRepo userRepo) {
-        this.cardRepo = cardRepo;  
-        this.userRepo = userRepo;
+    public MarketService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    public Map<String, Object> getAppUser() {
+        return restTemplate.getForObject(userServiceUrl, Map.class);
+    }
+
+    private boolean isCardInUserCards(Integer userId, int cardId) {
+        String URL = userServiceUrl+"users/{userId}/cards";
+        List<Map<String, Object>> userCards = restTemplate.getForObject(URL, List.class, userId);
+
+        return userCards.stream()
+                .anyMatch(card -> ((Number) card.get("id")).longValue() == cardId);
     }
 
     public void buyCard(Integer userId, int cardId) {
-        /*
-        Inventory userInventoy = inventoryRepo.findById(userId).get();
-        List<Card> useCards = userInventoy.getCards();
-        
-        // Check if the user has the card
-        if (useCards.contains(cardRepo.findById(cardId).get())) {
-            System.out.println("User already has the card");
+        boolean isCardInUserCards = isCardInUserCards(userId, cardId);
+        if (isCardInUserCards) { return; }
+
+        String userUrl = userServiceUrl+"users/{userId}";
+        String cardUrl = cardServiceUrl+"cards/{cardId}";
+        Map<String, Object> userData = restTemplate.getForObject(userUrl, Map.class, userId);
+        Map<String, Object> cardData = restTemplate.getForObject(cardUrl, Map.class, cardId);
+        double walletBalance = (double) userData.get("wallet");
+        double cardPrice = (double) cardData.get("price");
+
+        if(walletBalance < cardPrice) {
+            System.out.println("Not enough money to buy the card");
             return;
         }
-        
-        userRepo.findById(userId).get().setWallet( -cardRepo.findById(cardId).get().getPrice());
 
-        // on save le wallet dans la database
-        userRepo.save(userRepo.findById(userId).get());
-
-        // on supprime la carte de l'inventaire
-        useCards.add(cardRepo.findById(cardId).get());
-        userInventoy.setCards(useCards);
-        inventoryRepo.save(userInventoy);
-        */
+        String buyUrl = userServiceUrl+"/wallet";
+        restTemplate.put(buyUrl, cardPrice, userId);
     }
 
     public void sellCard(Integer userId, int cardId) {
-        /*
-            Inventory userInventoy = inventoryRepo.findById(userId).get();
-            List<Card> useCards = userInventoy.getCards();
-            
-            // Check if the user has the card
-            if (!useCards.contains(cardRepo.findById(cardId).get())) {
-                System.out.println("User does not have the card");
-                return;
-            }
-            System.out.println("User has the card");
-            userRepo.findById(userId).get().setWallet(cardRepo.findById(cardId).get().getPrice());
+        boolean isCardInUserCards = isCardInUserCards(userId, cardId);
+        if (!isCardInUserCards) { return; }
 
-            // on save le wallet dans la database
-            userRepo.save(userRepo.findById(userId).get());
+        String cardUrl = cardServiceUrl+"cards/{cardId}";
+        Map<String, Object> cardData = restTemplate.getForObject(cardUrl, Map.class, cardId);
+        double cardPrice = (double) cardData.get("price");
 
-            // on supprime la carte de l'inventaire
-            useCards.remove(cardRepo.findById(cardId).get());
-            userInventoy.setCards(useCards);
-            inventoryRepo.save(userInventoy);
-            */
+        String buyUrl = userServiceUrl+"/wallet";
+        restTemplate.put(buyUrl, cardPrice, userId);
     }
 
-    public List<Card> getCards() {
-        return cardRepo.findAll();
+    public Map<String, Object> getCards() {
+        String cardUrl = cardServiceUrl+"getcards/";
+        Map<String, Object> cards = restTemplate.getForObject(cardUrl, Map.class);
+        return cards;
     }
-
 }
