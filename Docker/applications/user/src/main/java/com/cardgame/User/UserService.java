@@ -1,69 +1,45 @@
 package com.cardgame.User;
 
-package com.cardgame.cardgame.services;
-
-import com.cardgame.cardgame.models.Card;
-import com.cardgame.cardgame.models.DataFormatter;
-import com.cardgame.cardgame.models.Inventory;
-import com.cardgame.cardgame.models.AppUser;
-import com.cardgame.cardgame.repositories.InventoryRepo;
-import com.cardgame.cardgame.repositories.UserRepo;
-
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 @Service
+@SuppressWarnings("unchecked")
 public class UserService{
 
-    private final UserRepo userRepo;
-    private final CardService cardService;
-    private final InventoryRepo inventoryRepo;
+    private final RestTemplate restTemplate;
+    private final String cardServiceUrl = "http://card/";
+    private final String userServiceUrl = "http://user/";
 
-    
-    public UserService(UserRepo userRepo, CardService cardService, InventoryRepo inventoryRepo) {
-        this.userRepo = userRepo;
-        this.cardService = cardService;
-        this.inventoryRepo = inventoryRepo;
+    public UserService(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     public boolean checkIfUserExists(String username, String email){
-        boolean byEmail = userRepo.findByEmail(email) != null;
-        boolean byUsername = userRepo.findByUsername(username) != null;
+        boolean byEmail = restTemplate.getForObject(userServiceUrl + "/users/email/" + email, Boolean.class);
+        boolean byUsername = restTemplate.getForObject(userServiceUrl + "/users/username/" + username, Boolean.class);
 
         return byEmail || byUsername;
     }
 
     public Integer registerUser(AppUser user) {
-        AppUser newUser = new AppUser(user.getUsername(), user.getEmail(), user.getPassword());
-        List<Card> cards = cardService.generateCards();
-        Inventory inventory = new Inventory(cards);
-        inventory.setCards(cards);
-        newUser.setInventory(inventory);
-        inventoryRepo.save(inventory);
-        AppUser savedUser = userRepo.save(newUser);
+        AppUser newUser = restTemplate.postForObject(userServiceUrl + "/users", user, AppUser.class);
+        List<Map<String, Object>> cards = restTemplate.getForObject(cardServiceUrl + "/cards", List.class);
+        cards.forEach(card -> {
+            restTemplate.postForObject(userServiceUrl + "/users/" + newUser.getId() + "/cards", card, Map.class);
+        });
+        AppUser savedUser = restTemplate.postForObject(userServiceUrl + "/users", newUser, AppUser.class);
 
         return savedUser.getId();
     }
 
     public Map<String, Object> getUsersDetails(String userId) {
-        Integer userIdInt = Integer.parseInt(userId);
-        Optional<AppUser> userOptional = userRepo.findById(userIdInt);
-        if (userOptional.isPresent()) {
-            AppUser user = userOptional.get();
-            String username = user.getUsername();
-            Double userMoney = user.getWallet();
-            return DataFormatter.formatUsersDetails(username, userMoney);
-        }
-        return null;
+        return restTemplate.getForObject(userServiceUrl + "/users/" + userId, Map.class);
     }
     
-    public Optional<Inventory> getInventory(String userId) {
-        Integer userIdInt = Integer.parseInt(userId);
-        System.out.println(userIdInt);
-        Optional<Inventory> inventory = inventoryRepo.findById(userIdInt);
-        return inventory;
-    }
+   
 }
