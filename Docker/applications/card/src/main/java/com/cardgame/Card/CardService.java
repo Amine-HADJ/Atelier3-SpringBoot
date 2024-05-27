@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
+@SuppressWarnings("unused")
 @Service
 public class CardService {
 
@@ -69,6 +73,32 @@ public class CardService {
         return cards;
     }
 
+    public Card getCardDetails(String cardId) {
+        Integer parsedCardId = Integer.parseInt(cardId);
+        return cardRepo.findById(parsedCardId).get();
+    }
+
+    public Map<String, Object> getAllCards() {
+        List<Card> cards = cardRepo.findAll();
+        return cards.stream()
+                .collect(Collectors.toMap(
+                        card -> String.valueOf(card.getId()),
+                        card -> {
+                            Map<String, Object> cardMap = new HashMap<>();
+                            cardMap.put("id", card.getId());
+                            cardMap.put("familyName", card.getFamilyName());
+                            cardMap.put("imgSrc", card.getImgSrc());
+                            cardMap.put("name", card.getName());
+                            cardMap.put("description", card.getDescription());
+                            cardMap.put("hp", card.getHp());
+                            cardMap.put("energy", card.getEnergy());
+                            cardMap.put("attack", card.getAttack());
+                            cardMap.put("defense", card.getDefense());
+                            cardMap.put("price", card.getPrice());
+                            return cardMap;
+                        }
+                ));
+    }
 }
 
 

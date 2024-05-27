@@ -8,10 +8,14 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@SuppressWarnings("unused")
 @RestController
 public class UserController {
 
@@ -37,9 +41,15 @@ public class UserController {
         }
     }
 
-    @PostMapping("/getuserdetails")
+    @GetMapping("/users/{userId}")
     @CrossOrigin(origins = "*")
-    public Map<String, Object> details(@RequestBody String userId) {
+    public Map<String, Object> getUserDetails(@PathVariable String userId) {
         return uService.getUsersDetails(userId);
+    }
+
+    @PutMapping("/wallet")
+    public ResponseEntity<String> updateUserWallet(@RequestBody String userId, @RequestBody double walletUpdate) {
+        uService.updateUserWallet(userId, walletUpdate);
+        return ResponseEntity.ok("ok");
     }
 }

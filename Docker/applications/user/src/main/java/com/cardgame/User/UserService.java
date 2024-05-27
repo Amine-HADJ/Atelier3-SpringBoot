@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 @SuppressWarnings("unchecked")
-public class UserService{
+public class UserService {
 
     private final UserRepo userRepo;
     private final RestTemplate restTemplate;
@@ -57,5 +57,15 @@ public class UserService{
             return userDetails;
         }
         return null;
+    }
+
+    public void updateUserWallet(String userId, double wallet) {
+        Integer userIdInt = Integer.parseInt(userId);
+        Optional<AppUser> userOptional = userRepo.findById(userIdInt);
+        if (userOptional.isPresent()) {
+            AppUser user = userOptional.get();
+            user.setWallet(user.getWallet() + wallet);
+            userRepo.save(user);
+        }
     }
 }

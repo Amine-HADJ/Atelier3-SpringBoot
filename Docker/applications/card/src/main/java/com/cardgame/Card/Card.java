@@ -121,7 +121,5 @@ public class Card implements java.io.Serializable{
 
     public void setPrice(int price) {
         this.price = price;
-    }
-
-  
+    }  
 }

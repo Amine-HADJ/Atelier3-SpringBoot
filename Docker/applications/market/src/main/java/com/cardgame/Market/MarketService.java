@@ -47,7 +47,7 @@ public class MarketService {
             return;
         }
 
-        String buyUrl = userServiceUrl+"/wallet";
+        String buyUrl = userServiceUrl+"wallet";
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("userId", userId);
         requestBody.put("price", -cardPrice);
@@ -62,7 +62,7 @@ public class MarketService {
         Map<String, Object> cardData = restTemplate.getForObject(cardUrl, Map.class, cardId);
         double cardPrice = (double) cardData.get("price");
 
-        String buyUrl = userServiceUrl+"/wallet";
+        String buyUrl = userServiceUrl+"wallet";
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("userId", userId);
         requestBody.put("price", cardPrice);
