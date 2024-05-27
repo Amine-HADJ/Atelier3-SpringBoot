@@ -2,4 +2,5 @@ com/cardgame/User/UserService.class
 com/cardgame/User/UserController.class
 com/cardgame/User/AppUser.class
 com/cardgame/User/UserApplication.class
+com/cardgame/User/RestTemplateConfig.class
 com/cardgame/User/UserRepo.class

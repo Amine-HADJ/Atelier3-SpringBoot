@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
     cards = await fetch("../json/cardMarket.json").then((response) => response.json());
 
-    await fetch("http://localhost:8080/generateCards", {
+    await fetch("http://card/generateCards", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
