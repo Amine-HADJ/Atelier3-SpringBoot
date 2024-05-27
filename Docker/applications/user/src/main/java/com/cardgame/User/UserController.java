@@ -47,7 +47,7 @@ public class UserController {
         return uService.getUsersDetails(userId);
     }
 
-    @PutMapping("/wallet")
+    @PostMapping("/wallet")
     public ResponseEntity<String> updateUserWallet(@RequestBody String userId, @RequestBody double walletUpdate) {
         uService.updateUserWallet(userId, walletUpdate);
         return ResponseEntity.ok("ok");
