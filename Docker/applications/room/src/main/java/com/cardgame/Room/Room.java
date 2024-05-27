@@ -13,13 +13,15 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    private List users;
+    private Integer user1id;
+    private Integer user2id;
 
     public Room() {
     }
 
-    public Room(List users) {
-        this.users = users;
+    public Room(Integer user1id, Integer user2id) {
+        this.user1id = user1id;
+        this.user2id = user2id;
     }
 
     public Integer getId() {
@@ -30,11 +32,19 @@ public class Room {
         this.id = id;
     }
 
-    public List getUsers() {
-        return users;
+    public Integer getUser1id() {
+        return user1id;
     }
 
-    public void setUsers(List users) {
-        this.users = users;
+    public void setUser1id(Integer user1id) {
+        this.user1id = user1id;
+    }
+
+    public Integer getUser2id() {
+        return user2id;
+    }
+
+    public void setUser2id(Integer user2id) {
+        this.user2id = user2id;
     }
 }
