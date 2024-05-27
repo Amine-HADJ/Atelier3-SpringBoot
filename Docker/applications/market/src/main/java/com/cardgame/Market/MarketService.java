@@ -3,6 +3,7 @@ package com.cardgame.Market;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,10 @@ public class MarketService {
         }
 
         String buyUrl = userServiceUrl+"/wallet";
-        restTemplate.put(buyUrl, cardPrice, userId);
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("userId", userId);
+        requestBody.put("price", -cardPrice);
+        restTemplate.postForObject(buyUrl, requestBody, String.class);
     }
 
     public void sellCard(Integer userId, int cardId) {
@@ -59,7 +63,10 @@ public class MarketService {
         double cardPrice = (double) cardData.get("price");
 
         String buyUrl = userServiceUrl+"/wallet";
-        restTemplate.put(buyUrl, cardPrice, userId);
+        Map<String, Object> requestBody = new HashMap<>();
+        requestBody.put("userId", userId);
+        requestBody.put("price", cardPrice);
+        restTemplate.postForObject(buyUrl, requestBody, String.class);
     }
 
     public Map<String, Object> getCards() {
