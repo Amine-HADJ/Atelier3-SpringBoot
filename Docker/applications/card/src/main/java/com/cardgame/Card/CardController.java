@@ -5,17 +5,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 
 
 @RestController
+@RequestMapping("/card")
 public class CardController {
     private final CardService cService;
 
     public CardController(CardService cService) {
         this.cService = cService;
     }
+
 
     @GetMapping("/hello")
     @CrossOrigin(origins = "*")
