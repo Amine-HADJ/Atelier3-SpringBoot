@@ -6,9 +6,11 @@ services:
       dockerfile: Dockerfile
     container_name: auth
     ports:
-      - "8081:8080"
+      - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=auth
+    networks:
+      - mynetwork
 
   user:
     build:
@@ -16,9 +18,11 @@ services:
       dockerfile: Dockerfile
     container_name: user
     ports:
-      - "8082:8080"
+      - "8082:8082"
     environment:
       - SPRING_PROFILES_ACTIVE=user
+    networks:
+      - mynetwork
 
   game:
     build:
@@ -26,9 +30,11 @@ services:
       dockerfile: Dockerfile
     container_name: game
     ports:
-      - "8083:8080"
+      - "8083:8083"
     environment:
       - SPRING_PROFILES_ACTIVE=game
+    networks:
+      - mynetwork
 
   market:
     build:
@@ -36,9 +42,11 @@ services:
       dockerfile: Dockerfile
     container_name: market
     ports:
-      - "8084:8080"
+      - "8084:8084"
     environment:
       - SPRING_PROFILES_ACTIVE=market
+    networks:
+      - mynetwork
 
   room:
     build:
@@ -46,9 +54,11 @@ services:
       dockerfile: Dockerfile
     container_name: room
     ports:
-      - "8085:8080"
+      - "8085:8085"
     environment:
       - SPRING_PROFILES_ACTIVE=room
+    networks:
+      - mynetwork
 
   card:
     build:
@@ -56,9 +66,11 @@ services:
       dockerfile: Dockerfile
     container_name: card
     ports:
-      - "8086:8080"
+      - "8086:8086"
     environment:
       - SPRING_PROFILES_ACTIVE=card
+    networks:
+      - mynetwork
 
   frontend:
     build:
@@ -67,6 +79,8 @@ services:
     container_name: frontend
     ports:
       - "3000:3000"
+    networks:
+      - mynetwork
 
   nginx:
     build:
@@ -83,3 +97,9 @@ services:
       - room
       - card
       - frontend
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge

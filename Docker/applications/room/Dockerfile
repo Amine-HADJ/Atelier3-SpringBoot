@@ -1,4 +1,4 @@
-FROM openjdk:23-slim
+FROM eclipse-temurin:21
 
 ARG JAR_FILE=target/*.jar
 
