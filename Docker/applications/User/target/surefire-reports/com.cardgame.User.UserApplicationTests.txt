@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.cardgame.User.UserApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.027 s -- in com.cardgame.User.UserApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.45 s -- in com.cardgame.User.UserApplicationTests

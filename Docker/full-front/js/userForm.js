@@ -17,7 +17,7 @@ async function process(elt){
         return
     }
     
-    await fetch("http://localhost:8080/register", {
+    await fetch("/user/register", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
