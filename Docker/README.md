@@ -5,7 +5,7 @@
 
 ## Specifications
 
-We have implemented all the mocroservices exept the game and room microservices. We have implemented the reverse proxy, the frontend and the microservices for the cards, market, auth and user. We have also implemented the docker-compose file to run all the services.
+We have implemented all the microservices except the game and room microservices. We have implemented the reverse proxy, the frontend and the microservices for the cards, market, auth and user. We have also implemented the docker-compose file to run all the services.
 We have encountered some big difficulties with the reverse proxy. It is why we don't answer too all the specifications. 
 Our microservices are working well and we can test them with postman.
 
