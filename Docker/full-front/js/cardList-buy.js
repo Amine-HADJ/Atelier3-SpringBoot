@@ -1,7 +1,7 @@
 let cardList;
 
 async function buyCard(id){
-    await fetch("http://localhost:8080/buycard", {
+    await fetch("/market/buycard", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -25,7 +25,7 @@ function setCardlist(){
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    cardList = await fetch("http://localhost:8080/getmarket", {
+    cardList = await fetch("/market/getmarket", {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

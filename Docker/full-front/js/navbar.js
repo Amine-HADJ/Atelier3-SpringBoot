@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if(id){
         authLinks.style.display = "none";
-        user = await fetch("http://localhost:8080/getuserdetails", {
+        user = await fetch("/user/getuserdetails", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

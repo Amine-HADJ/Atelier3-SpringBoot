@@ -11,7 +11,7 @@ async function process(elt){
         return
     }
 
-    await fetch("http://localhost:8080/login", {
+    await fetch("/auth/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

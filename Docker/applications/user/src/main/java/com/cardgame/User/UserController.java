@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @SuppressWarnings("unused")
 @RestController
 @RequestMapping("/user")
-
 public class UserController {
 
     
@@ -58,5 +57,11 @@ public class UserController {
     public ResponseEntity<String> updateUserWallet(@RequestBody String userId, @RequestBody double walletUpdate) {
         uService.updateUserWallet(userId, walletUpdate);
         return ResponseEntity.ok("ok");
+    }
+
+    @PostMapping("/getuserdetails")
+    @CrossOrigin(origins = "*")
+    public Map<String, Object> details(@RequestBody String userId) {
+        return uService.getUsersDetails(userId);
     }
 }

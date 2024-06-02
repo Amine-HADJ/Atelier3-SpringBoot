@@ -21,7 +21,7 @@ const userCardId = urlParams.get('id');
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    cardList = await fetch("http://localhost:8080/getinventory", {
+    cardList = await fetch("/user/getinventory", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
