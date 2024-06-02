@@ -1,3 +1,9 @@
+## Authors:
+- [HADJ-HAMDRI Mohammed-Amine](Networking, Docker, Reverse Proxy, servers, Microservices(cards, market))
+- [ROUET Liam]
+- [PHENG Julien]
+
+
 # Microservices
 This repository contains a simple microservices architecture using Docker et Spring Boot.
 Every microservice is a Spring Boot application and is deployed in a Docker container.
@@ -13,11 +19,16 @@ sh setup.sh
 This script will build the Docker images and run the containers.
 
 ## SERVICES
-- **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:8080
-
+- **Frontend**: http://localhost/
+- **Backend**:  http://localhost/card
+              - http://localhost/market
+              - http://localhost/user
+              - http://localhost/auth
+              - http://localhost/game
+              - http://localhost/room
+  
 ## Reverse Proxy
-A reverseProxy was set up to route requests to different microservices of our application.
+A reverseProxy was set up to route requests to different microservices of our application. It is an Nginx server that listens on port 80 and routes requests to the appropriate microservice based on the URL path.
 
 ## Questions :
 1. Quelle est la différence entre un test fonctionnel et un test unitaire ? A quoi sert la couverture de code ? 
