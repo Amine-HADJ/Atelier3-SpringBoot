@@ -1,7 +1,7 @@
 ## Authors:
 - [HADJ-HAMDRI Mohammed-Amine](Networking, Docker, Reverse Proxy, servers, Microservices(cards, market))
-- [ROUET Liam]
-- [PHENG Julien]
+- [ROUET Liam](Networking, Docker, Reverse Proxy, frontend, Microservices(cards, market, auth, user))
+- [PHENG Julien](Frontend, readme, Docker, Microservices(auth, user))
 
 
 # Microservices
