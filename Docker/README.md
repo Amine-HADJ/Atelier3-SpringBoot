@@ -3,6 +3,12 @@
 - [ROUET Liam](Networking, Docker, Reverse Proxy, frontend, Microservices(cards, market, auth, user))
 - [PHENG Julien](Frontend, readme, Docker, Microservices(auth, user))
 
+## Specifications
+
+We have implemented all the mocroservices exept the game and room microservices. We have implemented the reverse proxy, the frontend and the microservices for the cards, market, auth and user. We have also implemented the docker-compose file to run all the services.
+We have encountered some big difficulties with the reverse proxy. It is why we don't answer too all the specifications. 
+Our microservices are working well and we can test them with postman.
+
 
 # Microservices
 This repository contains a simple microservices architecture using Docker et Spring Boot.
@@ -11,16 +17,21 @@ There is also a container for the front end. This container is a Node.js applica
 
 
 ## INSTALLATION
-1. Clone the repository
+1. Clone the repository https://github.com/Amine-HADJ/Atelier3-SpringBoot.git
 2. Run the following command:
 ```bash
 sh setup.sh
 ```
-This script will build the Docker images and run the containers.
+This script will build the jar files, the Docker images and run the containers.
+
+## Youtube vidéo
+
+- https://www.youtube.com/watch?v=_QOCm2tZP2A
 
 ## SERVICES
 - **Frontend**: http://localhost/
-- **Backend**:  http://localhost/card
+- **Backend**:  
+              - http://localhost/card
               - http://localhost/market
               - http://localhost/user
               - http://localhost/auth
@@ -29,6 +40,9 @@ This script will build the Docker images and run the containers.
   
 ## Reverse Proxy
 A reverseProxy was set up to route requests to different microservices of our application. It is an Nginx server that listens on port 80 and routes requests to the appropriate microservice based on the URL path.
+
+
+## 
 
 ## Questions :
 1. Quelle est la différence entre un test fonctionnel et un test unitaire ? A quoi sert la couverture de code ? 
